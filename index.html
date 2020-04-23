@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="javascript.js"></script>
+    
+</head>
+
+<body class="grid" onload="startup()">
+    <div class="searchInput">
+        <button type="submit" class="searchButton" id="searchButton" onclick="search()">
+            <img src="searchIcon.png" class="searchIcon">
+        </button>
+        <input type="text" class="searchText" id="searchText" onkeypress="enterSearch()" autofocus>
+        <button class="closeSearch" id="closeS" onclick="document.getElementById('searchText').value = ''">
+            &times
+        </button>
+    </div>
+
+    <div class="dateTime">
+        <h1 id="time"></h1>
+        <h2 id="date"></h2>
+    </div>
+
+    <div class="stickyLeft">
+        <button class="closeStickyLeft" id="closeL" onclick="eraseNote()">
+            &times
+        </button>
+        <textarea class="stickyTextLeft" id="textL" onkeyup="updateNote()"></textarea>
+    </div>
+
+    <div class="stickyMiddle">
+        <button class="closeStickyMiddle" id="closeM" onclick="eraseNote()">
+            &times
+        </button>
+        <textarea class="stickyTextMiddle" id="textM" onkeyup="updateNote()"></textarea>
+    </div>
+
+    <div class="stickyRight">
+        <button class="closeStickyRight" id="closeR" onclick="eraseNote()">
+            &times
+        </button>
+        <textarea class="stickyTextRight" id="textR" onkeyup="updateNote()"></textarea>
+    </div>
+</body>
+
+</html>

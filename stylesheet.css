@@ -1,0 +1,290 @@
+/* ~~ Variables ~~ */
+:root {
+    /* ~~ Colors ~~ */
+    --bgColor: rgb(23, 23, 23);
+    --textColor: rgb(230, 230, 230);
+    --subtextColor: rgb(23, 23, 23);
+    --primColor: rgb(230, 230, 230);
+    --seconColor: rgb(160, 160, 160);
+    --tertColor: rgb(255, 100, 100);
+    --tertColorAccent: rgb(209, 88, 88);
+    --quatColor: rgb(110, 170, 255);
+    --transparent: rgb(255, 255, 255, 0);
+
+    /* ~~ Numbers ~~ */
+    --spacing: 10px;
+    --cornerRadius: 3px;
+    --transitionTime: 0.2s;
+}
+
+/* ~~ Main ~~ */
+body {
+    background: var(--bgColor);
+    color: var(--textColor);
+    height: 100vh;
+    padding: var(--spacing);
+}
+
+input, textarea, button {
+    outline: none;
+}
+
+/* ~~ Grid ~~ */
+.grid {
+    display: grid;
+    grid-template-rows: 50px 2fr 3fr;
+    grid-template-columns: 3fr 3fr 3fr;
+    grid-template-areas:
+        "header header header"
+        "time   time   time"
+        "left   middle right";
+    grid-gap: var(--spacing);
+}
+
+/* ~~ Search Input ~~ */
+.searchInput {
+    grid-area: header;
+    width: 100%;
+}
+
+.searchInput:hover > .searchText {
+    width: 80%;
+}
+
+.searchInput:hover > .searchButton {
+    background: var(--quatColor);
+    cursor: pointer;
+    width: 15%;
+}
+
+.searchInput:hover > .closeSearch {
+    background: var(--tertColor);
+    color: var(--primColor);
+    cursor: pointer;
+    width: 5%;
+}
+
+/* ~~ Search Text ~~ */
+.searchText {
+    height: 100%;
+    width: 89%;
+    padding: var(--spacing);
+    font-size: 1.5rem;
+    color: var(--subtextColor);
+    background: var(--primColor);
+    border: none;
+    border-radius: 0;
+    transition: var(--transitionTime);
+}
+
+/* ~~ Erase Search Text Button ~~ */
+.closeSearch {
+    height: 100%;
+    width: 0px;
+    background: var(--primColor);
+    border-radius: var(--cornerRadius) 0 0 var(--cornerRadius);
+    border: none;
+    transition: var(--transitionTime);
+    color: var(--transparent);
+    font-size: 1.75rem;
+    width: 1%;
+    float: left;
+}
+
+.closeSearch:active:hover {
+    background: var(--tertColorAccent);
+    transition: calc(var(--transitionTime)/4);
+}
+
+/* ~~ Search Button ~~ */
+.searchButton {
+    height: 100%;
+    width: 10%;
+    background: var(--seconColor);
+    border: none;
+    border-radius: 0 var(--cornerRadius) var(--cornerRadius) 0;
+    transition: var(--transitionTime);
+    float: right;
+}
+
+.searchButton:active > .searchIcon {
+    height: 85%;
+}
+
+.searchIcon {
+    height: 70%;
+    transition: var(--transitionTime);
+}
+
+/* ~~ Date/Time ~~ */
+.dateTime {
+    grid-area: time;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+.dateTime h1 {
+    font-size: 5rem;
+    line-height: 5rem;
+}
+
+.dateTime h2 {
+    font-size: 1.5rem;
+    line-height: 0rem;
+}
+
+/* ~~ Sticky Notes ~~ */
+/* ~~ Left Sticky Note ~~ */
+.stickyLeft {
+    grid-area: left;
+}
+
+/* ~~ Middle Sticky Note ~~ */
+.stickyMiddle {
+    grid-area: middle;
+}
+
+/* ~~ Right Sticky Note ~~ */
+.stickyRight {
+    grid-area: right;
+}
+
+.stickyLeft, .stickyMiddle, .stickyRight {
+    margin: auto;
+}
+
+.closeStickyLeft, .closeStickyMiddle, .closeStickyRight {
+    background: var(--seconColor);
+    color: var(--transparent);
+    border: none;
+    width: 100%;
+    height: 20px;
+    transition: var(--transitionTime);
+    border-radius: var(--cornerRadius) var(--cornerRadius) 0 0;
+    margin-bottom: 0px;
+    float: left;
+    cursor: pointer;
+    font-size: 1.75rem;
+    line-height: 20pt;
+}
+
+.stickyLeft:hover > .closeStickyLeft, .stickyMiddle:hover > .closeStickyMiddle, .stickyRight:hover > .closeStickyRight {
+    background: var(--tertColor);
+    color: var(--primColor);
+    height: 40px;
+}
+
+.closeStickyLeft:active:hover, .closeStickyMiddle:active:hover, .closeStickyRight:active:hover {
+    background: var(--tertColorAccent);
+    transition: calc(var(--transitionTime)/4);
+}
+
+.stickyTextLeft, .stickyTextMiddle, .stickyTextRight {
+    background: var(--primColor);
+    border: none;
+    width: 100%;
+    height: 200px;
+    padding: var(--spacing);
+    resize: none;
+    border-radius: 0 0 var(--cornerRadius) var(--cornerRadius);
+    margin-top: 0px;
+}
+
+/* ~~ Conditional ~~ */
+@media all and (max-width: 1300px) {
+    .searchText {
+        width: 85%;
+    }
+    
+    .closeSearch {
+        width: 5%;
+    }
+
+    .searchButton {
+        width: 10%;
+    }
+
+    .searchInput:hover > .searchText {
+        width: 75%;
+    }
+
+    .searchInput:hover > .closeSearch {
+        width: 10%;
+    }
+
+    .searchInput:hover > .searchButton {
+        width: 15%;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .grid {
+        display: grid;
+        grid-template-rows: 50px 2fr 3fr 3fr 3fr;
+        grid-template-columns: 6fr;
+        grid-template-areas:
+            "header"
+            "time"
+            "left"
+            "middle"
+            "right";
+        grid-gap: var(--spacing);
+    }
+
+    .searchText {
+        width: 85%;
+    }
+    
+    .closeSearch {
+        width: 5%;
+    }
+
+    .searchButton {
+        width: 10%;
+    }
+
+    .searchInput:hover > .searchText {
+        width: 75%;
+    }
+
+    .searchInput:hover > .closeSearch {
+        width: 10%;
+    }
+
+    .searchInput:hover > .searchButton {
+        width: 15%;
+    }
+
+    .dateTime {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .stickyLeft, .stickyMiddle, .stickyRight {
+        margin: 0;
+    }
+}
+
+
+/* ~~ Scrollbar Configuration ~~ */
+::-webkit-scrollbar {
+    width: 1em;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primColor);
+    margin: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--seconColor);
+    border-radius: calc(var(--cornerRadius));
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--quatColor);
+}
