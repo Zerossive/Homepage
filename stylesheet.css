@@ -239,7 +239,7 @@ input, textarea, button {
 @media all and (max-width: 800px) {
     .grid {
         display: grid;
-        grid-template-rows: 50px 2fr 3fr 3fr 3fr;
+        grid-template-rows: 75px 2fr 3fr 3fr 3fr;
         grid-template-columns: 6fr;
         grid-template-areas:
             "header"
@@ -260,6 +260,14 @@ input, textarea, button {
 
     .searchButton {
         width: 10%;
+    }
+
+    .searchButton:active > .searchIcon {
+        height: 65%;
+    }
+
+    .searchIcon {
+        height: 50%;
     }
 
     .searchInput:hover > .searchText {
