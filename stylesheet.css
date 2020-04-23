@@ -195,6 +195,20 @@ input, textarea, button {
     margin-top: 0px;
 }
 
+.noteGradient {
+    width: 100%;
+    height: calc(var(--cornerRadius)*2);
+    border-radius: 0 0 var(--cornerRadius) var(--cornerRadius);
+    background-image: linear-gradient(var(--transparent), var(--primColor));
+    position: relative;
+    bottom: calc(var(--cornerRadius)*2*2 + 5px);
+}
+
+.noteGradientTop {
+    background-image: linear-gradient(var(--primColor), var(--transparent));
+    bottom: calc(var(--cornerRadius)*6 + 187px);
+}
+
 /* ~~ Conditional ~~ */
 @media all and (max-width: 1300px) {
     .searchText {
