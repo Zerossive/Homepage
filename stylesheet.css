@@ -23,6 +23,7 @@ body {
     color: var(--textColor);
     height: 100vh;
     padding: var(--spacing);
+    user-select: none;
 }
 
 input, textarea, button {
