@@ -37,7 +37,7 @@ input, textarea, button {
     grid-template-columns: 3fr 3fr 3fr;
     grid-template-areas:
         "header header header"
-        "time   time   time"
+        "midLeft   time   midRight"
         "left   middle right";
     grid-gap: var(--spacing);
 }
@@ -117,6 +117,26 @@ input, textarea, button {
     transition: var(--transitionTime);
 }
 
+/* ~~ Middle Left ~~ */
+.midLeft {
+    grid-area: midLeft;
+    margin: auto;
+}
+
+.logo {
+    height: calc(var(--cornerRadius)*30);
+    transition: var(--transitionTime);
+    cursor: pointer;
+}
+
+.logo:hover {
+    height: calc(var(--cornerRadius)*35);
+}
+
+.logo:active {
+    height: calc(var(--cornerRadius)*40);
+}
+
 /* ~~ Date/Time ~~ */
 .dateTime {
     grid-area: time;
@@ -136,6 +156,12 @@ input, textarea, button {
 .dateTime h2 {
     font-size: 1.5rem;
     line-height: 0rem;
+}
+
+/* ~~ Middle Right ~~ */
+.midRight {
+    grid-area: midRight;
+    margin: auto;
 }
 
 /* ~~ Sticky Notes ~~ */
@@ -240,13 +266,13 @@ input, textarea, button {
     .grid {
         display: grid;
         grid-template-rows: 75px 2fr 3fr 3fr 3fr;
-        grid-template-columns: 6fr;
+        grid-template-columns: 1fr 6fr 1fr;
         grid-template-areas:
-            "header"
-            "time"
-            "left"
-            "middle"
-            "right";
+            "header header header"
+            "midLeft time midRight"
+            "left left left"
+            "middle middle middle"
+            "right right right";
         grid-gap: var(--spacing);
     }
 
@@ -263,11 +289,11 @@ input, textarea, button {
     }
 
     .searchButton:active > .searchIcon {
-        height: 65%;
+        height: 45%;
     }
 
     .searchIcon {
-        height: 50%;
+        height: 30%;
     }
 
     .searchInput:hover > .searchText {
@@ -287,6 +313,23 @@ input, textarea, button {
         margin-bottom: 30px;
     }
 
+    .logo {
+        height: calc(var(--cornerRadius)*20);
+    }
+
+    .logo:hover {
+        height: calc(var(--cornerRadius)*25);
+    }
+    
+    .logo:active {
+        height: calc(var(--cornerRadius)*30);
+    }
+
+    .dateTime h1 {
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+
     .stickyLeft, .stickyMiddle, .stickyRight {
         margin: 0;
     }
@@ -300,12 +343,13 @@ input, textarea, button {
 
 ::-webkit-scrollbar-track {
     background: var(--primColor);
+    border-radius: var(--cornerRadius);
     margin: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--seconColor);
-    border-radius: calc(var(--cornerRadius));
+    border-radius: var(--cornerRadius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
