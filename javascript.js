@@ -13,9 +13,9 @@ function startup() {
     textR.value = localStorage.getItem("textR");
     
     // Setup Note Event Listeners
-    updateNote(textL);
-    updateNote(textM);
-    updateNote(textR);
+    textL.addEventListener("keydown", updateNote);
+    textM.addEventListener("keydown", updateNote);
+    textR.addEventListener("keydown", updateNote);
 }
 
 // Search on "Enter" Pressed
@@ -32,20 +32,20 @@ function search() {
 }
 
 // Update Note on keydown
-function updateNote(note) {
-    note.onkeydown = function(event) {
-        // Case for "tab"
-        if(event.keyCode == 9) {
-            note.focus();
-            startPos = note.selectionStart;
-            note.value = note.value.slice(0, startPos) + '\t' + note.value.slice(startPos);
-            event.preventDefault();
-            note.setSelectionRange(startPos + ('\t').length, startPos + ('\t').length);
-        }
-        
-        // Save Note
+function updateNote(e) {
+    note = e.target;
+    // Case for "tab"
+    if(e.keyCode == 9) {
+        note.focus();
+        startPos = note.selectionStart;
+        note.value = note.value.slice(0, startPos) + '\t' + note.value.slice(startPos);
+        event.preventDefault();
+        note.setSelectionRange(startPos + ('\t').length, startPos + ('\t').length);
+
         localStorage.setItem(note.id, note.value);
-        console.log(note.id);
+    } else {
+        // If Not "tab"
+        localStorage.setItem(note.id, note.value + e.key);
     }
 }
 
