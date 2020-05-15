@@ -1,28 +1,55 @@
+// Run at Startup
 function startup() {
     showTime();
+    
+    // Setup Note Elements
+    var textL = document.getElementById("textL");
+    var textM = document.getElementById("textM");
+    var textR = document.getElementById("textR");
 
-    document.getElementById("textL").value = localStorage.getItem("textL");
-    document.getElementById("textM").value = localStorage.getItem("textM");
-    document.getElementById("textR").value = localStorage.getItem("textR");
+    // Fill Notes w/ Local Values
+    textL.value = localStorage.getItem("textL");
+    textM.value = localStorage.getItem("textM");
+    textR.value = localStorage.getItem("textR");
+    
+    // Setup Note Event Listeners
+    updateNote(textL);
+    updateNote(textM);
+    updateNote(textR);
 }
 
+// Search on "Enter" Pressed
 function enterSearch() {
     if (event.keyCode == 13) {
         search();
     }
 }
 
+// Search on Button Press
 function search() {
     let searchText = document.getElementById("searchText").value;
     window.open("https://www.google.com/search?q=" + searchText, "_self");
 }
 
-function updateNote() {
-    var selectedId = event.target.id;
-    note = document.getElementById(selectedId);
-    localStorage.setItem(selectedId, note.value);
+// Update Note on keydown
+function updateNote(note) {
+    note.onkeydown = function(event) {
+        // Case for "tab"
+        if(event.keyCode == 9) {
+            note.focus();
+            startPos = note.selectionStart;
+            note.value = note.value.slice(0, startPos) + '\t' + note.value.slice(startPos);
+            event.preventDefault();
+            note.setSelectionRange(startPos + ('\t').length, startPos + ('\t').length);
+        }
+        
+        // Save Note
+        localStorage.setItem(note.id, note.value);
+        console.log(note.id);
+    }
 }
 
+// Button to Delete Note
 function eraseNote() {
     var selectedId = event.target.id;
     noteId = "text" + selectedId.substring(selectedId.length - 1, selectedId.length);
@@ -30,6 +57,7 @@ function eraseNote() {
     localStorage.removeItem(noteId);
 }
 
+// Display Time
 function showTime(){
     var date = new Date();
     var h = date.getHours(); // 0 - 23
