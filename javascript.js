@@ -16,6 +16,10 @@ function startup() {
     textL.addEventListener("keydown", updateNote);
     textM.addEventListener("keydown", updateNote);
     textR.addEventListener("keydown", updateNote);
+    // Event Listeners to Save Notes
+    textL.addEventListener("keyup", saveNote);
+    textM.addEventListener("keyup", saveNote);
+    textR.addEventListener("keyup", saveNote);
 }
 
 // Search on "Enter" Pressed
@@ -34,19 +38,30 @@ function search() {
 // Update Note on keydown
 function updateNote(e) {
     note = e.target;
-    // Case for "tab"
-    if(e.keyCode == 9) {
-        note.focus();
-        startPos = note.selectionStart;
+    startPos = note.selectionStart;
+
+    if(e.key == "Tab") {
+        // Case for "Tab"
         note.value = note.value.slice(0, startPos) + '\t' + note.value.slice(startPos);
         event.preventDefault();
         note.setSelectionRange(startPos + ('\t').length, startPos + ('\t').length);
-
-        localStorage.setItem(note.id, note.value);
-    } else {
-        // If Not "tab"
-        localStorage.setItem(note.id, note.value + e.key);
+    } else if (e.key == " " && note.value[startPos - 1] == "*") {
+        // Case for "Bullet Point"
+        note.value = note.value.slice(0, startPos - 1) + ' \u25CF' + note.value.slice(startPos);
+    } else if (e.key == "Enter" && note.value.includes('\u25CF')) {
+        // Case for "Enter"
+        note.value = note.value.slice(0, startPos) + ' \u25CF ' + note.value.slice(startPos);
+        note.setSelectionRange(startPos, startPos);
     }
+}
+
+// Saves Notes on keyup After Editing
+function saveNote(e) {
+    note = e.target;
+    if(e.key == "Enter" && note.value.includes('\u25CF')) {
+        note.setSelectionRange(startPos + 4, startPos + 4);
+    }
+    localStorage.setItem(note.id, note.value);
 }
 
 // Button to Delete Note
