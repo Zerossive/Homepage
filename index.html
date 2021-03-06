@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Homepage</title>
+        <link
+            rel="stylesheet"
+            href="https://www.w3schools.com/w3css/3/w3.css"
+        />
+        <link rel="stylesheet" href="stylesheet.css" />
+        <link rel="shortcut icon" href="logoIcon.ico" />
+        <script src="javascript.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Homepage</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-    <link rel="stylesheet" href="stylesheet.css">
-    <link rel="shortcut icon" href="logoIcon.ico"/>
-    <script src="javascript.js"></script>
-    
-</head>
+    <body class="grid" onload="startup()">
+        <div class="searchInput">
+            <button
+                type="submit"
+                class="searchButton"
+                id="searchButton"
+                onclick="search()"
+            >
+                <img src="searchIcon.png" class="searchIcon" />
+            </button>
+            <input
+                type="text"
+                class="searchText"
+                id="searchText"
+                onkeypress="enterSearch()"
+                autofocus
+            />
+            <button
+                class="closeSearch"
+                id="closeS"
+                onclick="document.getElementById('searchText').value = ''"
+            >
+                &times
+            </button>
+        </div>
 
-<body class="grid" onload="startup()">
-    <div class="searchInput">
-        <button type="submit" class="searchButton" id="searchButton" onclick="search()">
-            <img src="searchIcon.png" class="searchIcon">
-        </button>
-        <input type="text" class="searchText" id="searchText" onkeypress="enterSearch()" autofocus>
-        <button class="closeSearch" id="closeS" onclick="document.getElementById('searchText').value = ''">
-            &times
-        </button>
-    </div>
+        <div class="midLeft">
+            <img class="logo" src="Space Cube Logo v3.png" />
+        </div>
 
-    <div class="midLeft">
-        <img class="logo" src="Space Cube Logo v3.png">
-    </div>
+        <div class="dateTime">
+            <h1 id="time"></h1>
+            <h2 id="date"></h2>
+        </div>
 
-    <div class="dateTime">
-        <h1 id="time"></h1>
-        <h2 id="date"></h2>
-    </div>
+        <div class="midRight">
+            <img class="logo" src="Space Cube Logo v3.png" />
+        </div>
 
-    <div class="midRight">
-        <img class="logo" src="Space Cube Logo v3.png">
-    </div>
+        <div class="stickyLeft">
+            <button
+                class="closeStickyLeft"
+                id="closeL"
+                onclick="eraseNote(this)"
+            >
+                &times
+            </button>
+            <textarea class="stickyTextLeft" id="textL"></textarea>
+            <div class="noteGradient noteGradientTop"></div>
+            <div class="noteGradient"></div>
+        </div>
 
-    <div class="stickyLeft">
-        <button class="closeStickyLeft" id="closeL" onclick="eraseNote()">
-            &times
-        </button>
-        <textarea class="stickyTextLeft" id="textL"></textarea>
-        <div class="noteGradient noteGradientTop"></div>
-        <div class="noteGradient"></div>
-    </div>
+        <div class="stickyMiddle">
+            <button
+                class="closeStickyMiddle"
+                id="closeM"
+                onclick="eraseNote(this)"
+            >
+                &times
+            </button>
+            <textarea class="stickyTextMiddle" id="textM"></textarea>
+            <div class="noteGradient noteGradientTop"></div>
+            <div class="noteGradient"></div>
+        </div>
 
-    <div class="stickyMiddle">
-        <button class="closeStickyMiddle" id="closeM" onclick="eraseNote()">
-            &times
-        </button>
-        <textarea class="stickyTextMiddle" id="textM"></textarea>
-        <div class="noteGradient noteGradientTop"></div>
-        <div class="noteGradient"></div>
-    </div>
-
-    <div class="stickyRight">
-        <button class="closeStickyRight" id="closeR" onclick="eraseNote()">
-            &times
-        </button>
-        <textarea class="stickyTextRight" id="textR"></textarea>
-        <div class="noteGradient noteGradientTop"></div>
-        <div class="noteGradient"></div>
-    </div>
-</body>
-
+        <div class="stickyRight">
+            <button
+                class="closeStickyRight"
+                id="closeR"
+                onclick="eraseNote(this)"
+            >
+                &times
+            </button>
+            <textarea class="stickyTextRight" id="textR"></textarea>
+            <div class="noteGradient noteGradientTop"></div>
+            <div class="noteGradient"></div>
+        </div>
+    </body>
 </html>

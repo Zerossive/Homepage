@@ -26,7 +26,9 @@ body {
     user-select: none;
 }
 
-input, textarea, button {
+input,
+textarea,
+button {
     outline: none;
 }
 
@@ -94,7 +96,7 @@ input, textarea, button {
 
 .closeSearch:active:hover {
     background: var(--tertColorAccent);
-    transition: calc(var(--transitionTime)/4);
+    transition: calc(var(--transitionTime) / 4);
 }
 
 /* ~~ Search Button ~~ */
@@ -124,17 +126,17 @@ input, textarea, button {
 }
 
 .logo {
-    height: calc(var(--cornerRadius)*30);
+    height: calc(var(--cornerRadius) * 30);
     transition: var(--transitionTime);
     cursor: pointer;
 }
 
 .logo:hover {
-    height: calc(var(--cornerRadius)*35);
+    height: calc(var(--cornerRadius) * 35);
 }
 
 .logo:active {
-    height: calc(var(--cornerRadius)*40);
+    height: calc(var(--cornerRadius) * 40);
 }
 
 /* ~~ Date/Time ~~ */
@@ -180,11 +182,15 @@ input, textarea, button {
     grid-area: right;
 }
 
-.stickyLeft, .stickyMiddle, .stickyRight {
+.stickyLeft,
+.stickyMiddle,
+.stickyRight {
     margin: auto;
 }
 
-.closeStickyLeft, .closeStickyMiddle, .closeStickyRight {
+.closeStickyLeft,
+.closeStickyMiddle,
+.closeStickyRight {
     background: var(--seconColor);
     color: var(--transparent);
     border: none;
@@ -199,18 +205,24 @@ input, textarea, button {
     line-height: 20pt;
 }
 
-.stickyLeft:hover > .closeStickyLeft, .stickyMiddle:hover > .closeStickyMiddle, .stickyRight:hover > .closeStickyRight {
+.stickyLeft:hover > .closeStickyLeft,
+.stickyMiddle:hover > .closeStickyMiddle,
+.stickyRight:hover > .closeStickyRight {
     background: var(--tertColor);
     color: var(--primColor);
     height: 40px;
 }
 
-.closeStickyLeft:active:hover, .closeStickyMiddle:active:hover, .closeStickyRight:active:hover {
+.closeStickyLeft:active:hover,
+.closeStickyMiddle:active:hover,
+.closeStickyRight:active:hover {
     background: var(--tertColorAccent);
-    transition: calc(var(--transitionTime)/4);
+    transition: calc(var(--transitionTime) / 4);
 }
 
-.stickyTextLeft, .stickyTextMiddle, .stickyTextRight {
+.stickyTextLeft,
+.stickyTextMiddle,
+.stickyTextRight {
     background: var(--primColor);
     border: none;
     width: 100%;
@@ -223,16 +235,16 @@ input, textarea, button {
 
 .noteGradient {
     width: 100%;
-    height: calc(var(--cornerRadius)*2);
+    height: calc(var(--cornerRadius) * 2);
     border-radius: 0 0 var(--cornerRadius) var(--cornerRadius);
     background-image: linear-gradient(var(--transparent), var(--primColor));
     position: relative;
-    bottom: calc(var(--cornerRadius)*2*2 + 5px);
+    bottom: calc(var(--cornerRadius) * 2 * 2 + 5px);
 }
 
 .noteGradientTop {
     background-image: linear-gradient(var(--primColor), var(--transparent));
-    bottom: calc(var(--cornerRadius)*6 + 187px);
+    bottom: calc(var(--cornerRadius) * 6 + 187px);
 }
 
 /* ~~ Conditional ~~ */
@@ -240,7 +252,7 @@ input, textarea, button {
     .searchText {
         width: 85%;
     }
-    
+
     .closeSearch {
         width: 5%;
     }
@@ -279,7 +291,7 @@ input, textarea, button {
     .searchText {
         width: 85%;
     }
-    
+
     .closeSearch {
         width: 5%;
     }
@@ -314,15 +326,15 @@ input, textarea, button {
     }
 
     .logo {
-        height: calc(var(--cornerRadius)*20);
+        height: calc(var(--cornerRadius) * 20);
     }
 
     .logo:hover {
-        height: calc(var(--cornerRadius)*25);
+        height: calc(var(--cornerRadius) * 25);
     }
-    
+
     .logo:active {
-        height: calc(var(--cornerRadius)*30);
+        height: calc(var(--cornerRadius) * 30);
     }
 
     .dateTime h1 {
@@ -330,11 +342,12 @@ input, textarea, button {
         line-height: 3rem;
     }
 
-    .stickyLeft, .stickyMiddle, .stickyRight {
+    .stickyLeft,
+    .stickyMiddle,
+    .stickyRight {
         margin: 0;
     }
 }
-
 
 /* ~~ Scrollbar Configuration ~~ */
 ::-webkit-scrollbar {
