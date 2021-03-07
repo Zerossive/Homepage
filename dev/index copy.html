@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="css/materialize.min.css"
+            media="screen,projection"
+        />
+
+        <script src="main.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body class="blue-grey darken-4 white-text">
+        <!-- Nav bar -->
+        <div class="row white black-text" style="text-align: center">
+            <a
+                class="col s2 l1 btn-large white waves-effect hoverable black-text left"
+                ><i class="material-icons left">code</i>PREV</a
+            >
+            <a class="col s8 l10 btn-large btn-flat white"><b>HOMEPAGE</b></a>
+            <a
+                class="col s2 l1 btn-large white waves-effect hoverable black-text right"
+                ><i class="material-icons right">code</i>NEXT</a
+            >
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Time -->
+            <div class="col s12 m6 center-align" id="timeArea">
+                <h1 id="time">Time</h1>
+                <h4 id="date">date</h4>
+            </div>
+
+            <div class="col s12 m6">
+                <!-- Card Area -->
+                <div id="cardArea"></div>
+
+                <!-- Add Card Area -->
+                <div class="center-align">
+                    <!-- Add Card Button -->
+                    <a
+                        class="btn-large blue-grey waves-effect waves-light hoverable"
+                        style="width: 100%"
+                        onclick="createNewCard()"
+                        onmouseover="this.style.color='cyan';"
+                        onmouseout="this.style.color='';"
+                    >
+                        <i class="material-icons">add</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+
+        <script></script>
+    </body>
+</html>
