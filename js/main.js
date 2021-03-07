@@ -5,15 +5,44 @@ document.addEventListener("DOMContentLoaded", async function () {
     var elems = document.querySelectorAll(".tooltipped");
     var instances = M.Tooltip.init(elems, {});
 
-    dburl = "https://zerossive-homepage-default-rtdb.firebaseio.com/";
+    var elems2 = document.querySelectorAll(".dropdown-trigger");
+    var instances = M.Dropdown.init(elems2, {});
+
+    // Set up initial database info
+    dburl = "https://zerossive-homepage-default-rtdb.firebaseio.com/Card List/";
+    cardListUrl = await getData(dburl, "Current List");
+    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+
+    // Card list button event listeners
+    document
+        .querySelector("#listBtn1")
+        .addEventListener("click", changeCardList);
+    document
+        .querySelector("#listBtn2")
+        .addEventListener("click", changeCardList);
+    document
+        .querySelector("#listBtn3")
+        .addEventListener("click", changeCardList);
 
     showTime();
     setupCards();
 });
 
+// Button function to change the selected card list
+function changeCardList(e) {
+    let button = e.target;
+    cardListUrl = button.innerHTML;
+    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+    document.querySelector("#cardArea").innerHTML = "";
+    patchData(dburl, "", "Current List", cardListUrl);
+    setupCards();
+
+    console.log("Switched to card list: " + button.innerHTML);
+}
+
 // Sets up the initial cards from database
 async function setupCards() {
-    cardList = await getData(dburl, "Card List");
+    cardList = await getData(dburl, cardListUrl);
 
     for (const property in cardList) {
         createCard(`${property}`, `${cardList[property]}`);
@@ -25,7 +54,7 @@ async function setupCards() {
 // Creates a new card and updates database
 function createNewCard() {
     let card = createCard();
-    patchData(dburl, "Card List", card.name, card.value);
+    patchData(dburl, cardListUrl, card.name, card.value);
     card.textField.focus();
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     console.log("Card Created: " + card.name);
@@ -58,7 +87,7 @@ function createCard(name, value) {
     textArea.id = newCard.id + "text";
     !value ? (textArea.innerHTML = "") : (textArea.innerHTML = value);
     textArea.addEventListener("keyup", function () {
-        patchData(dburl, "Card List", newCard.id, textArea.value);
+        patchData(dburl, cardListUrl, newCard.id, textArea.value);
     });
     inputField.appendChild(textArea);
     M.textareaAutoResize(textArea);
@@ -74,7 +103,7 @@ function createCard(name, value) {
         "btn blue-grey waves-effect waves-light hoverable"
     );
     button.addEventListener("mouseover", function () {
-        button.style.color = "cyan";
+        button.style.color = "#e57373";
     });
     button.addEventListener("mouseout", function () {
         button.style.color = "";
@@ -132,7 +161,7 @@ function removeCard(delBtn) {
     while (!delBtn.classList.contains("card-panel")) {
         delBtn = delBtn.parentElement;
     }
-    deleteData(dburl, "Card List", delBtn.id);
+    deleteData(dburl, cardListUrl, delBtn.id);
     delBtn.remove();
 
     M.Toast.dismissAll();

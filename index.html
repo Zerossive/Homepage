@@ -47,29 +47,46 @@
             <!-- Left Section -->
             <div class="col s12 m6 center-align" id="timeArea">
                 <!-- Time / Date -->
-                <h1 id="time">Time</h1>
-                <h4 id="date">date</h4>
+                <h1 id="time"></h1>
+                <h4 id="date"></h4>
             </div>
 
             <!-- Right Section -->
             <div class="col s12 m6">
+                <!-- Card List Selector -->
+                <a
+                    class="dropdown-trigger btn-large white blue-grey-text"
+                    href="#"
+                    data-target="cardListDropdown"
+                    style="width: 100%; margin-bottom: 5px"
+                    id="cardListBtn"
+                ></a>
+                <ul id="cardListDropdown" class="dropdown-content">
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn1">MAIN</a>
+                    </li>
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn2">SCHOOL</a>
+                    </li>
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn3">MISC</a>
+                    </li>
+                </ul>
+
                 <!-- Card Area -->
                 <div id="cardArea"></div>
 
-                <!-- Add Card Area -->
-                <div class="center-align">
-                    <!-- Add Card Button -->
-                    <a
-                        class="btn-large blue-grey waves-effect waves-light hoverable"
-                        style="width: 100%"
-                        onclick="createNewCard()"
-                        onmouseover="this.style.color='cyan';"
-                        onmouseout="this.style.color='';"
-                    >
-                        <!-- Button Icon -->
-                        <i class="material-icons">add</i>
-                    </a>
-                </div>
+                <!-- Add Card Button -->
+                <a
+                    class="btn-large blue-grey waves-effect waves-light hoverable"
+                    style="width: 100%"
+                    onclick="createNewCard()"
+                    onmouseover="this.style.color='cyan';"
+                    onmouseout="this.style.color='';"
+                >
+                    <!-- Button Icon -->
+                    <i class="material-icons">add</i>
+                </a>
             </div>
         </div>
     </body>
