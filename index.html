@@ -2,94 +2,75 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Homepage</title>
+
+        <!-- Online Files-->
+        <!-- CSS -->
         <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-            href="https://www.w3schools.com/w3css/3/w3.css"
         />
-        <link rel="stylesheet" href="stylesheet.css" />
+
+        <!-- Local Files -->
+        <!-- Media -->
         <link rel="shortcut icon" href="logoIcon.ico" />
-        <script src="javascript.js"></script>
+        <!-- CSS -->
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="css/materialize.min.css"
+            media="screen,projection"
+        />
+        <!-- JS -->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
     </head>
 
-    <body class="grid" onload="startup()">
-        <div class="searchInput">
-            <button
-                type="submit"
-                class="searchButton"
-                id="searchButton"
-                onclick="search()"
+    <!-- Main Body -->
+    <body class="blue-grey darken-4 white-text">
+        <!-- Nav bar -->
+        <div class="row white black-text" style="text-align: center">
+            <a
+                class="col s2 l1 btn-large white waves-effect hoverable black-text left"
+                ><i class="material-icons left">code</i>PREV</a
             >
-                <img src="searchIcon.png" class="searchIcon" />
-            </button>
-            <input
-                type="text"
-                class="searchText"
-                id="searchText"
-                onkeypress="enterSearch()"
-                placeholder="dev branch"
-                autofocus
-            />
-            <button
-                class="closeSearch"
-                id="closeS"
-                onclick="document.getElementById('searchText').value = ''"
+            <a class="col s8 l10 btn-large btn-flat white"><b>HOMEPAGE</b></a>
+            <a
+                class="col s2 l1 btn-large white waves-effect hoverable black-text right"
+                ><i class="material-icons right">code</i>NEXT</a
             >
-                &times
-            </button>
         </div>
 
-        <div class="midLeft">
-            <img class="logo" src="Space Cube Logo v3.png" />
-        </div>
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Left Section -->
+            <div class="col s12 m6 center-align" id="timeArea">
+                <!-- Time / Date -->
+                <h1 id="time">Time</h1>
+                <h4 id="date">date</h4>
+            </div>
 
-        <div class="dateTime">
-            <h1 id="time"></h1>
-            <h2 id="date"></h2>
-        </div>
+            <!-- Right Section -->
+            <div class="col s12 m6">
+                <!-- Card Area -->
+                <div id="cardArea"></div>
 
-        <div class="midRight">
-            <img class="logo" src="Space Cube Logo v3.png" />
-        </div>
-
-        <div class="stickyLeft">
-            <button
-                class="closeStickyLeft"
-                id="closeL"
-                onclick="eraseNote(this)"
-            >
-                &times
-            </button>
-            <textarea class="stickyTextLeft" id="textL"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
-        </div>
-
-        <div class="stickyMiddle">
-            <button
-                class="closeStickyMiddle"
-                id="closeM"
-                onclick="eraseNote(this)"
-            >
-                &times
-            </button>
-            <textarea class="stickyTextMiddle" id="textM"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
-        </div>
-
-        <div class="stickyRight">
-            <button
-                class="closeStickyRight"
-                id="closeR"
-                onclick="eraseNote(this)"
-            >
-                &times
-            </button>
-            <textarea class="stickyTextRight" id="textR"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
+                <!-- Add Card Area -->
+                <div class="center-align">
+                    <!-- Add Card Button -->
+                    <a
+                        class="btn-large blue-grey waves-effect waves-light hoverable"
+                        style="width: 100%"
+                        onclick="createNewCard()"
+                        onmouseover="this.style.color='cyan';"
+                        onmouseout="this.style.color='';"
+                    >
+                        <!-- Button Icon -->
+                        <i class="material-icons">add</i>
+                    </a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
