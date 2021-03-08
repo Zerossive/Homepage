@@ -1,0 +1,97 @@
+/* Variables */
+:root {
+    /* Colors */
+    --textColor: rgb(255, 255, 255);
+
+    /* Numbers */
+}
+
+body {
+    background-color: #293251;
+}
+
+.container {
+    width: 300px;
+    background-color: #607d8b;
+
+    /* display: block; */
+    margin: 20% auto 10% auto;
+
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.notification {
+    background-color: #f8d7da;
+    display: none;
+}
+
+.notification p {
+    color: #721c24;
+    font-size: 1.2em;
+    margin: 0;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.weather-container {
+    width: 300px;
+    height: 280px;
+    border-radius: 10px 10px 0 0;
+    background-color: #607d8b;
+}
+
+.weather-icon {
+    width: 300px;
+    height: 128px;
+}
+
+.weather-icon img {
+    display: block;
+    margin: 0 auto;
+}
+
+.temperature-value {
+    width: 300px;
+    height: 70px;
+}
+
+.temperature-value p {
+    padding: 0;
+    margin: 0;
+    color: var(--textColor);
+    font-size: 4em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.temperature-value p:hover {
+}
+
+.temperature-value span {
+    color: var(--textColor);
+    font-size: 0.5em;
+}
+
+.temperature-description {
+}
+
+.temperature-description p {
+    padding: 8px;
+    margin: 0;
+    margin-top: 15px;
+    color: var(--textColor);
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.location {
+}
+
+.location p {
+    margin: 0;
+    padding: 0;
+    color: var(--textColor);
+    text-align: center;
+    font-size: 0.8em;
+}

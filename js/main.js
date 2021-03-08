@@ -2,11 +2,8 @@
 document.addEventListener("DOMContentLoaded", async function () {
     console.log("Page Loaded");
 
-    var elems = document.querySelectorAll(".tooltipped");
-    var instances = M.Tooltip.init(elems, {});
-
-    var elems2 = document.querySelectorAll(".dropdown-trigger");
-    var instances = M.Dropdown.init(elems2, {});
+    var elems = document.querySelectorAll(".dropdown-trigger");
+    var instances = M.Dropdown.init(elems, {});
 
     // Set up initial database info
     dburl = "https://zerossive-homepage-default-rtdb.firebaseio.com/Card List/";
@@ -24,8 +21,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         .querySelector("#listBtn3")
         .addEventListener("click", changeCardList);
 
-    showTime();
+    // Window size change event listener
+    window.addEventListener("resize", function () {
+        // Auto resize text areas
+        if (document.querySelector(".materialize-textarea")) {
+            M.textareaAutoResize(
+                document.querySelector(".materialize-textarea")
+            );
+        }
+    });
+
     setupCards();
+
+    console.log("Initial Cards Created");
+
+    showTime();
 });
 
 // Button function to change the selected card list
@@ -48,7 +58,10 @@ async function setupCards() {
         createCard(`${property}`, `${cardList[property]}`);
     }
 
-    console.log("Initial Cards Created");
+    // Auto resize text areas
+    if (document.querySelector(".materialize-textarea")) {
+        M.textareaAutoResize(document.querySelector(".materialize-textarea"));
+    }
 }
 
 // Creates a new card and updates database
@@ -57,7 +70,7 @@ function createNewCard() {
     patchData(dburl, cardListUrl, card.name, card.value);
     card.textField.focus();
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    console.log("Card Created: " + card.name);
+    console.log("Created Card: " + card.name);
 }
 
 // Creates a card element
@@ -90,7 +103,8 @@ function createCard(name, value) {
         patchData(dburl, cardListUrl, newCard.id, textArea.value);
     });
     inputField.appendChild(textArea);
-    M.textareaAutoResize(textArea);
+    // Auto resize text areas
+    M.textareaAutoResize(document.querySelector(".materialize-textarea"));
 
     // button div
     let buttonDiv = document.createElement("div");
@@ -178,7 +192,7 @@ async function deleteData(url, item, name) {
 }
 
 // Display Time
-function showTime() {
+function showTime(textArea) {
     var date = new Date();
     var h = date.getHours(); // 0 - 23
     var m = date.getMinutes(); // 0 - 59
