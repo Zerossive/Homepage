@@ -127,7 +127,7 @@ function createCard(name, value) {
         "btn blue-grey waves-effect waves-light hoverable"
     );
     button.addEventListener("mouseover", function () {
-        button.style.color = "#e57373";
+        button.style.color = "#ef9a9a";
     });
     button.addEventListener("mouseout", function () {
         button.style.color = "";

@@ -5,7 +5,28 @@
 
     /* Numbers */
 }
+/* Main */
+body {
+    padding-top: 70px;
+}
 
+.navBar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    text-align: center;
+}
+
+/* Materialize */
+#toast-container {
+    top: 50px;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+}
+
+/* Weather */
 body {
     background-color: #293251;
 }
