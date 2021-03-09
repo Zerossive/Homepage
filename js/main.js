@@ -21,34 +21,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         .querySelector("#listBtn3")
         .addEventListener("click", changeCardList);
 
-    // Window size change event listener
-    window.addEventListener("resize", function () {
-        // Auto resize text areas
-        if (document.querySelector(".materialize-textarea")) {
-            M.textareaAutoResize(
-                document.querySelector(".materialize-textarea")
-            );
-        }
-    });
+    // Window resize event listener
+    window.addEventListener("resize", windowResize);
 
     setupCards();
+    showTime();
 
     console.log("Initial Cards Created");
-
-    showTime();
 });
-
-// Button function to change the selected card list
-function changeCardList(e) {
-    let button = e.target;
-    cardListUrl = button.innerHTML;
-    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
-    document.querySelector("#cardArea").innerHTML = "";
-    patchData(dburl, "", "Current List", cardListUrl);
-    setupCards();
-
-    console.log("Switched to card list: " + button.innerHTML);
-}
 
 // Sets up the initial cards from database
 async function setupCards() {
@@ -60,8 +40,28 @@ async function setupCards() {
 
     // Auto resize text areas
     if (document.querySelector(".materialize-textarea")) {
-        M.textareaAutoResize(document.querySelector(".materialize-textarea"));
+        for (
+            let i = 0;
+            i < document.querySelectorAll(".materialize-textarea").length;
+            i++
+        ) {
+            M.textareaAutoResize(
+                document.querySelectorAll(".materialize-textarea")[i]
+            );
+        }
     }
+}
+
+// Button function to change the selected card list
+function changeCardList(e) {
+    let button = e.target;
+    cardListUrl = button.innerHTML;
+    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+    document.querySelector("#cardArea").innerHTML = "";
+    patchData(dburl, "", "Current List", cardListUrl);
+    setupCards();
+
+    console.log("Switched to card list: " + button.innerHTML);
 }
 
 // Creates a new card and updates database
@@ -104,7 +104,17 @@ function createCard(name, value) {
     });
     inputField.appendChild(textArea);
     // Auto resize text areas
-    M.textareaAutoResize(document.querySelector(".materialize-textarea"));
+    if (document.querySelector(".materialize-textarea")) {
+        for (
+            let i = 0;
+            i < document.querySelectorAll(".materialize-textarea").length;
+            i++
+        ) {
+            M.textareaAutoResize(
+                document.querySelectorAll(".materialize-textarea")[i]
+            );
+        }
+    }
 
     // button div
     let buttonDiv = document.createElement("div");
@@ -141,35 +151,6 @@ function createCard(name, value) {
     return card;
 }
 
-// Updates database
-async function patchData(url, item, name, value) {
-    data = { [name]: value };
-    const response = await fetch(url + item + ".json", {
-        method: "PATCH",
-        body: JSON.stringify(data),
-    });
-}
-
-// Gets data from database
-async function getData(url, item) {
-    const response = await fetch(url + item + ".json");
-    return response.json();
-}
-
-// Makes a random id string
-function makeid(length) {
-    var result = "";
-    var characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-        result += characters.charAt(
-            Math.floor(Math.random() * charactersLength)
-        );
-    }
-    return result;
-}
-
 // Removes the selected card
 function removeCard(delBtn) {
     while (!delBtn.classList.contains("card-panel")) {
@@ -181,6 +162,21 @@ function removeCard(delBtn) {
     M.Toast.dismissAll();
     M.toast({ html: "Card Removed", classes: "red lighten-2" });
     console.log("Removed Card: " + delBtn.id);
+}
+
+// Gets data from database
+async function getData(url, item) {
+    const response = await fetch(url + item + ".json");
+    return response.json();
+}
+
+// Updates database
+async function patchData(url, item, name, value) {
+    data = { [name]: value };
+    const response = await fetch(url + item + ".json", {
+        method: "PATCH",
+        body: JSON.stringify(data),
+    });
 }
 
 // Deletes data from database
@@ -252,4 +248,20 @@ function showTime(textArea) {
     document.getElementById("date").innerText = calDate;
 
     setTimeout(showTime, 250);
+}
+
+// Run on window resize
+function windowResize() {
+    // Auto resize text areas
+    if (document.querySelector(".materialize-textarea")) {
+        for (
+            let i = 0;
+            i < document.querySelectorAll(".materialize-textarea").length;
+            i++
+        ) {
+            M.textareaAutoResize(
+                document.querySelectorAll(".materialize-textarea")[i]
+            );
+        }
+    }
 }
