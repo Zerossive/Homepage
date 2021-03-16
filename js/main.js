@@ -99,8 +99,14 @@ function createCard(name, value) {
     textArea.setAttribute("class", "materialize-textarea white-text");
     textArea.id = newCard.id + "text";
     !value ? (textArea.innerHTML = "") : (textArea.innerHTML = value);
-    textArea.addEventListener("keyup", function () {
-        patchData(dburl, cardListUrl, newCard.id, textArea.value);
+    textArea.addEventListener("keydown", function newText(textEvent) {
+        editCard(textEvent, newCard.id, textArea);
+
+        // TESTING
+        // patchData(dburl, cardListUrl, newCard.id, textArea.value);
+    });
+    textArea.addEventListener("keyup", function newText(textEvent) {
+        updateCard(textEvent, newCard.id, textArea);
     });
     inputField.appendChild(textArea);
     // Auto resize text areas
@@ -114,6 +120,35 @@ function createCard(name, value) {
                 document.querySelectorAll(".materialize-textarea")[i]
             );
         }
+    }
+
+    // Edits card text
+    function editCard(textEvent, cardId, text) {
+        startPos = text.selectionStart;
+
+        if (textEvent.key == "Tab") {
+            // Case for "Tab"
+            text.value =
+                text.value.slice(0, startPos) +
+                "\t" +
+                text.value.slice(startPos);
+            textEvent.preventDefault();
+            text.setSelectionRange(
+                startPos + "\t".length,
+                startPos + "\t".length
+            );
+        } else if (textEvent.key == " " && text.value[startPos - 1] == "*") {
+            // Case for "Bullet Point"
+            text.value =
+                text.value.slice(0, startPos - 1) +
+                " \u25CF" +
+                text.value.slice(startPos);
+        }
+    }
+
+    // Updates card in database
+    function updateCard(textEvent, cardId, text) {
+        patchData(dburl, cardListUrl, cardId, text.value);
     }
 
     // button div
