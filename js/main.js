@@ -5,12 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     var elems = document.querySelectorAll(".dropdown-trigger");
     var instances = M.Dropdown.init(elems, {});
 
-    // Variables
-    pageIndex = 0;
-    animDuration = 0.2;
-
     // Set up initial database info
-    dburl = "https://zerossive-homepage-default-rtdb.firebaseio.com/Card List/";
     cardListUrl = await getData(dburl, "Current List");
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
 

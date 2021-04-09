@@ -28,6 +28,7 @@
         <!-- JS -->
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
     </head>
 
     <!-- Main Body -->
@@ -117,11 +118,30 @@
             </div>
         </div>
 
+        <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
         <div class="row" id="page2">
-            <div class="col s12 red"><h1>Page 2</h1></div>
+            <div class="col s12">
+                <h1>Schedule</h1>
+                <iframe
+                    src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FChicago&amp;src=ZGFubnloYXJyaXMxMUB0YW11LmVkdQ&amp;src=Y192NGZlYTYwOHQwZ3RubWptcXVwMmQ1NmYza0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y183dXRnNTVscHE4ZW9jZ3VjdHBtbnFpNXNya0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%23E67C73&amp;color=%237986CB&amp;color=%23616161&amp;showTitle=0&amp;showNav=1&amp;showDate=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0"
+                    style="border-width: 0"
+                    width="75%"
+                    height="650"
+                    frameborder="0"
+                    scrolling="no"
+                ></iframe>
+            </div>
         </div>
         <div class="row" id="page3">
-            <div class="col s12 blue"><h1>Page 3</h1></div>
+            <div class="col s12">
+                <h1>Page 3</h1>
+                <iframe
+                    src="http://127.0.0.1:5500/#!"
+                    width="75%"
+                    height="650"
+                ></iframe>
+            </div>
         </div>
 
         <!-- Local Weather JS -->
