@@ -82,16 +82,92 @@ function createCard(name, value) {
         "card-panel blue-grey darken-3 col s12 valign-wrapper"
     );
     !name ? (newCard.id = "card" + new Date().getTime()) : (newCard.id = name);
+    newCard.style.position = "relative";
     newCard.style.transition = "opacity 500ms";
     newCard.style.opacity = "0";
+    newCard.style.overflow = "hidden";
     requestAnimationFrame(() => {
         newCard.style.opacity = "1";
     });
     document.querySelector("#cardArea").appendChild(newCard);
 
+    // left button area
+    let leftBtnArea = document.createElement("div");
+    leftBtnArea.setAttribute("class", "blue-grey darken-2");
+    leftBtnArea.style.position = "absolute";
+    leftBtnArea.style.left = "0px";
+    leftBtnArea.style.height = "100%";
+    leftBtnArea.style.width = "51.5px";
+    leftBtnArea.style.borderRadius = "10px";
+    newCard.appendChild(leftBtnArea);
+
+    // move up button
+    let prevBtn = document.createElement("a");
+    prevBtn.setAttribute(
+        "class",
+        "btn-flat blue-grey darken-2 waves-effect waves-light hoverable lighten-2 valign-wrapper white-text"
+    );
+    prevBtn.style.backgroundColor = "#455a64";
+    prevBtn.style.width = "51.5px";
+    prevBtn.style.height = "50%";
+    prevBtn.style.position = "absolute";
+    prevBtn.style.top = "0px";
+    prevBtn.style.textAlign = "center";
+    prevBtn.addEventListener("mouseover", function () {
+        prevBtn.style.backgroundColor = "#e57373";
+    });
+    prevBtn.addEventListener("mouseout", function () {
+        prevBtn.style.backgroundColor = "#455a64";
+    });
+    prevBtn.addEventListener("click", function () {
+        // TESTING
+        console.log("Moved up", newCard.id);
+    });
+    leftBtnArea.appendChild(prevBtn);
+
+    // move up icon
+    let prevButtonIcon = document.createElement("i");
+    prevButtonIcon.setAttribute("class", "material-icons valign-wrapper");
+    prevButtonIcon.style.height = "100%";
+    prevButtonIcon.innerHTML = "expand_less";
+    prevBtn.appendChild(prevButtonIcon);
+
+    // move down button
+    let nextBtn = document.createElement("a");
+    nextBtn.setAttribute(
+        "class",
+        "btn-flat blue-grey darken-2 waves-effect waves-light hoverable lighten-2 valign-wrapper white-text"
+    );
+    nextBtn.style.backgroundColor = "#455a64";
+    nextBtn.style.width = "51.5px";
+    nextBtn.style.height = "50%";
+    nextBtn.style.position = "absolute";
+    nextBtn.style.bottom = "0px";
+    nextBtn.style.textAlign = "center";
+    nextBtn.addEventListener("mouseover", function () {
+        nextBtn.style.backgroundColor = "#e57373";
+    });
+    nextBtn.addEventListener("mouseout", function () {
+        nextBtn.style.backgroundColor = "#455a64";
+    });
+    nextBtn.addEventListener("click", function () {
+        // TESTING
+        console.log("Moved down", newCard.id);
+    });
+    leftBtnArea.appendChild(nextBtn);
+
+    // move down icon
+    let nextButtonIcon = document.createElement("i");
+    nextButtonIcon.setAttribute("class", "material-icons valign-wrapper");
+    nextButtonIcon.style.height = "100%";
+    nextButtonIcon.innerHTML = "expand_more";
+    nextBtn.appendChild(nextButtonIcon);
+
     // input-field
     let inputField = document.createElement("div");
-    inputField.setAttribute("class", "col s12 input-field");
+    inputField.setAttribute("class", "input-field");
+    inputField.style.width = "calc(100% - 2*51.5px";
+    inputField.style.marginLeft = "51.5px";
     newCard.appendChild(inputField);
 
     // textarea
@@ -101,9 +177,6 @@ function createCard(name, value) {
     !value ? (textArea.innerHTML = "") : (textArea.innerHTML = value);
     textArea.addEventListener("keydown", function newText(textEvent) {
         editCard(textEvent, newCard.id, textArea);
-
-        // TESTING
-        // patchData(dburl, cardListUrl, newCard.id, textArea.value);
     });
     textArea.addEventListener("keyup", function newText(textEvent) {
         updateCard(textEvent, newCard.id, textArea);
@@ -122,68 +195,80 @@ function createCard(name, value) {
         }
     }
 
-    // Edits card text
-    function editCard(textEvent, cardId, text) {
-        startPos = text.selectionStart;
-
-        if (textEvent.key == "Tab") {
-            // Case for "Tab"
-            text.value =
-                text.value.slice(0, startPos) +
-                "\t" +
-                text.value.slice(startPos);
-            textEvent.preventDefault();
-            text.setSelectionRange(
-                startPos + "\t".length,
-                startPos + "\t".length
-            );
-        } else if (textEvent.key == " " && text.value[startPos - 1] == "*") {
-            // Case for "Bullet Point"
-            text.value =
-                text.value.slice(0, startPos - 1) +
-                " \u25CF" +
-                text.value.slice(startPos);
-        }
-    }
-
-    // Updates card in database
-    function updateCard(textEvent, cardId, text) {
-        patchData(dburl, cardListUrl, cardId, text.value);
-    }
-
-    // button div
-    let buttonDiv = document.createElement("div");
-    newCard.appendChild(buttonDiv);
-
-    // button
+    // delete button
     let button = document.createElement("a");
-    button.setAttribute(
-        "class",
-        "btn blue-grey waves-effect waves-light hoverable"
-    );
+    button.setAttribute("class", "btn  waves-effect waves-light hoverable");
+    button.style.backgroundColor = "#455a64";
+    button.style.width = "51.5px";
+    button.style.height = "100%";
+    button.style.position = "absolute";
+    button.style.right = "0px";
     button.addEventListener("mouseover", function () {
-        button.style.color = "#ef9a9a";
+        // button.style.color = "#ef9a9a";
+        button.style.backgroundColor = "#e57373";
     });
     button.addEventListener("mouseout", function () {
-        button.style.color = "";
+        // button.style.color = "";
+        button.style.backgroundColor = "#455a64";
     });
     button.addEventListener("click", function () {
         removeCard(button);
     });
-    buttonDiv.appendChild(button);
+    newCard.appendChild(button);
 
-    // button icon
+    // delete button icon
     let buttonIcon = document.createElement("i");
-    buttonIcon.setAttribute("class", "material-icons");
-    buttonIcon.innerHTML = "remove";
+    buttonIcon.setAttribute("class", "material-icons valign-wrapper");
+    buttonIcon.style.height = "100%";
+    buttonIcon.innerHTML = "delete_outline";
     button.appendChild(buttonIcon);
 
+    // TESTING - Button resize animation
+    // newCard.addEventListener("mouseover", function () {
+    //     leftBtnArea.style.left = "0px";
+    //     button.style.right = "0px";
+    //     // inputField.style.width = "calc(100% - 2*51.5px";
+    //     // inputField.style.marginLeft = "51.5px";
+    // });
+    // newCard.addEventListener("mouseout", function () {
+    //     leftBtnArea.style.left = "-51.5px";
+    //     button.style.right = "-51.5px";
+    //     // inputField.style.width = "calc(100% - 51.5px";
+    //     // inputField.style.marginLeft = "0px";
+    // });
+
+    // Return card info
     let card = {
         name: newCard.id,
         value: textArea.innerHTML,
         textField: textArea,
     };
+
     return card;
+}
+
+// Edits card text
+function editCard(textEvent, cardId, text) {
+    startPos = text.selectionStart;
+
+    if (textEvent.key == "Tab") {
+        // Case for "Tab"
+        text.value =
+            text.value.slice(0, startPos) + "\t" + text.value.slice(startPos);
+        textEvent.preventDefault();
+        text.setSelectionRange(startPos + "\t".length, startPos + "\t".length);
+    } else if (textEvent.key == " " && text.value[startPos - 1] == "*") {
+        // Case for "Bullet Point"
+        text.value =
+            text.value.slice(0, startPos - 1) +
+            " \u25CF" +
+            text.value.slice(startPos);
+    }
+}
+
+// Updates card in database
+function updateCard(textEvent, cardId, text) {
+    patchData(dburl, cardListUrl, cardId, text.value);
 }
 
 // Removes the selected card
