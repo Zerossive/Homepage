@@ -11,6 +11,8 @@
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
         />
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!-- Local Files -->
         <!-- Media -->
@@ -34,19 +36,23 @@
         <div class="row white navBar">
             <a
                 class="col m2 hide-on-small-only btn-large white waves-effect hoverable blue-grey-text left"
+                id="prevBtn"
                 ><i class="material-icons left">chevron_left</i>PREV</a
             >
-            <a class="col s12 m8 btn-large btn-flat white blue-grey-text"
+            <a
+                class="col s12 m8 btn-large btn-flat white blue-grey-text"
+                id="homepageBtn"
                 ><b>HOMEPAGE</b></a
             >
             <a
                 class="col m2 hide-on-small-only btn-large white waves-effect hoverable blue-grey-text right"
+                id="nextBtn"
                 ><i class="material-icons right">chevron_right</i>NEXT</a
             >
         </div>
 
         <!-- Main Content -->
-        <div class="row">
+        <div class="row" id="notesPage">
             <!-- Left Section -->
             <div class="col s12 m6 center-align" id="timeArea">
                 <!-- Time / Date -->
@@ -109,6 +115,13 @@
                     <i class="material-icons">add</i>
                 </a>
             </div>
+        </div>
+
+        <div class="row" id="page2">
+            <div class="col s12 red"><h1>Page 2</h1></div>
+        </div>
+        <div class="row" id="page3">
+            <div class="col s12 blue"><h1>Page 3</h1></div>
         </div>
 
         <!-- Local Weather JS -->

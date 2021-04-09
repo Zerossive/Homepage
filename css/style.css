@@ -5,18 +5,43 @@
     --panelColor: transparent;
 
     /* Numbers */
+    --animDuration: 0.5s;
 }
 
 /* Main */
 body {
     padding-top: 70px;
+    /* overflow: hidden; */
+}
+
+/* Notes Page */
+#notesPage {
+    position: absolute;
+    width: 100%;
+    visibility: visible;
+    left: 0%;
+    padding-bottom: 10px;
+}
+
+/* TESTING - page 2 */
+#page2 {
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+
+    text-align: center;
+}
+#page3 {
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+
+    text-align: center;
 }
 
 /* Cards */
 /* Card Area */
 #cardArea {
-    background-color: red;
-    /* color: cyan; */
 }
 
 /* Card Input */
@@ -26,8 +51,6 @@ body {
 
 /* Card Button Area */
 .cardButtonArea {
-    /* background-color: #47acff; */
-    /* height: 100% !important; */
     width: auto;
     margin-left: 10px;
 }
@@ -59,6 +82,7 @@ body::-webkit-scrollbar-thumb {
     top: 0;
     width: 100%;
     z-index: 99;
+    user-select: none;
 }
 
 /* Materialize */

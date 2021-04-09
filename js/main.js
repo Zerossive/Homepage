@@ -5,10 +5,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     var elems = document.querySelectorAll(".dropdown-trigger");
     var instances = M.Dropdown.init(elems, {});
 
+    // Variables
+    pageIndex = 0;
+    animDuration = 0.2;
+
     // Set up initial database info
     dburl = "https://zerossive-homepage-default-rtdb.firebaseio.com/Card List/";
     cardListUrl = await getData(dburl, "Current List");
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+
+    // Page event listeners
+    document.querySelector("#nextBtn").addEventListener("click", changePage);
+    document.querySelector("#prevBtn").addEventListener("click", changePage);
 
     // Card list button event listeners
     document
@@ -29,6 +37,49 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     console.log("Initial Cards Created");
 });
+
+// Changes the current page
+function changePage(e) {
+    let direction = e.target.id;
+    let pages = ["notesPage", "page2", "page3"];
+    let oldPage = pages[pageIndex];
+
+    // Check if next or previous pages button pressed
+    if (direction == "nextBtn") {
+        pageIndex == pages.length - 1 ? (pageIndex = 0) : pageIndex++;
+    } else if (direction == "prevBtn") {
+        pageIndex == 0 ? (pageIndex = pages.length - 1) : pageIndex--;
+    } else {
+        console.log("Could not change pages");
+
+        return;
+    }
+
+    let newPage = pages[pageIndex];
+
+    // close current page
+    $("#" + oldPage).animate(
+        { width: "70%", opacity: "0" },
+        {
+            duration: animDuration * 1000,
+            complete: function () {
+                document.querySelector("#" + oldPage).style.visibility =
+                    "hidden";
+            },
+        }
+    );
+
+    // open next/previous page
+    document.querySelector("#" + newPage).style.visibility = "visible";
+    $("#" + newPage).animate(
+        { width: "100%", opacity: "1" },
+        {
+            duration: animDuration * 1000,
+        }
+    );
+
+    console.log("Switched to", newPage);
+}
 
 // Sets up the initial cards from database
 async function setupCards() {
@@ -66,10 +117,15 @@ function changeCardList(e) {
 
 // Creates a new card and updates database
 function createNewCard() {
+    // Create card and update database
     let card = createCard();
     patchData(dburl, cardListUrl, card.name, card.value);
     card.textField.focus();
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+    // Scroll to bottom on creating a new card
+    let scrollingElement = document.scrollingElement || document.body;
+    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+
     console.log("Created Card: " + card.name);
 }
 
