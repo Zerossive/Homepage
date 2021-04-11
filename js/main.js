@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     var instances = M.Dropdown.init(elems, {});
 
     // Set up initial database info
-    cardListUrl = await getData(dburl, "Current List");
+    cardListUrl = await getData(dbUrl, "Current List");
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
 
     // Page event listeners
@@ -78,7 +78,7 @@ function changePage(e) {
 
 // Sets up the initial cards from database
 async function setupCards() {
-    cardList = await getData(dburl, cardListUrl);
+    cardList = await getData(dbUrl, cardListUrl);
 
     for (const property in cardList) {
         createCard(`${property}`, `${cardList[property]}`);
@@ -104,7 +104,7 @@ function changeCardList(e) {
     cardListUrl = button.innerHTML;
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
     document.querySelector("#cardArea").innerHTML = "";
-    patchData(dburl, "", "Current List", cardListUrl);
+    patchData(dbUrl, "", "Current List", cardListUrl);
     setupCards();
 
     console.log("Switched to card list: " + button.innerHTML);
@@ -114,7 +114,7 @@ function changeCardList(e) {
 function createNewCard() {
     // Create card and update database
     let card = createCard();
-    patchData(dburl, cardListUrl, card.name, card.value);
+    patchData(dbUrl, cardListUrl, card.name, card.value);
     card.textField.focus();
 
     // Scroll to bottom on creating a new card
@@ -319,7 +319,7 @@ function editCard(textEvent, cardId, text) {
 
 // Updates card in database
 function updateCard(textEvent, cardId, text) {
-    patchData(dburl, cardListUrl, cardId, text.value);
+    patchData(dbUrl, cardListUrl, cardId, text.value);
 }
 
 // Removes the selected card
@@ -327,7 +327,7 @@ function removeCard(delBtn) {
     while (!delBtn.classList.contains("card-panel")) {
         delBtn = delBtn.parentElement;
     }
-    deleteData(dburl, cardListUrl, delBtn.id);
+    deleteData(dbUrl, cardListUrl, delBtn.id);
     delBtn.remove();
 
     M.Toast.dismissAll();
