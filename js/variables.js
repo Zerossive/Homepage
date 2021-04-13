@@ -2,6 +2,12 @@
 pageIndex = 0;
 animDuration = 0.2;
 
+// Card Info
+selectedCard = {
+    id: "",
+    text: "",
+};
+
 // URLs
 dbUrl = "https://zerossive-homepage-default-rtdb.firebaseio.com/Card List/";
 

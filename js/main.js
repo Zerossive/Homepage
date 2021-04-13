@@ -60,6 +60,9 @@ function changePage(e) {
             complete: function () {
                 document.querySelector("#" + oldPage).style.visibility =
                     "hidden";
+                if (oldPage == "notesPage") {
+                    document.querySelector("#cardArea").innerHTML = "";
+                }
             },
         }
     );
@@ -70,6 +73,11 @@ function changePage(e) {
         { width: "100%", opacity: "1" },
         {
             duration: animDuration * 1000,
+            complete: function () {
+                if (newPage == "notesPage") {
+                    setupCards();
+                }
+            },
         }
     );
 
@@ -78,8 +86,13 @@ function changePage(e) {
 
 // Sets up the initial cards from database
 async function setupCards() {
+    // Get card data from db
     cardList = await getData(dbUrl, cardListUrl);
 
+    // Clear card area
+    document.querySelector("#cardArea").innerHTML = "";
+
+    // Create each card
     for (const property in cardList) {
         createCard(`${property}`, `${cardList[property]}`);
     }
@@ -164,14 +177,41 @@ function createCard(name, value) {
     prevBtn.style.position = "absolute";
     prevBtn.style.top = "0px";
     prevBtn.style.textAlign = "center";
-    prevBtn.addEventListener("mouseover", function () {
-        prevBtn.style.backgroundColor = "#e57373";
-    });
-    prevBtn.addEventListener("mouseout", function () {
-        prevBtn.style.backgroundColor = "#455a64";
-    });
     prevBtn.addEventListener("click", function () {
-        // TESTING
+        // Get affected cards
+        let currentCard = prevBtn.parentElement.parentElement;
+        let currentText = currentCard.childNodes[1].firstChild;
+
+        // Check if selected card can be moved up
+        if (currentCard == currentCard.parentElement.firstChild) {
+            console.log("Can't move", currentCard.id, "up any more");
+            return;
+        }
+
+        // console.log(currentCard == currentCard.parentElement.firstChild);
+
+        let previousCard = currentCard.previousSibling;
+        let previousText = previousCard.childNodes[1].firstChild;
+
+        // Save current card info
+        selectedCard.id = currentCard.id;
+        selectedCard.text = currentText.value;
+
+        // Apply previous card info to selected card
+        currentCard.id = previousCard.id;
+
+        // Apply saved card info to previous card
+        previousCard.id = selectedCard.id;
+
+        // Update cards in db
+        updateCard(currentCard.id, currentText.value);
+        updateCard(previousCard.id, previousText.value);
+
+        // Re-setup card area after a short delay
+        setTimeout(function () {
+            setupCards();
+        }, 100);
+
         console.log("Moved up", newCard.id);
     });
     leftBtnArea.appendChild(prevBtn);
@@ -195,14 +235,41 @@ function createCard(name, value) {
     nextBtn.style.position = "absolute";
     nextBtn.style.bottom = "0px";
     nextBtn.style.textAlign = "center";
-    nextBtn.addEventListener("mouseover", function () {
-        nextBtn.style.backgroundColor = "#e57373";
-    });
-    nextBtn.addEventListener("mouseout", function () {
-        nextBtn.style.backgroundColor = "#455a64";
-    });
     nextBtn.addEventListener("click", function () {
-        // TESTING
+        // Get affected cards
+        let currentCard = nextBtn.parentElement.parentElement;
+        let currentText = currentCard.childNodes[1].firstChild;
+
+        // Check if selected card can be moved up
+        if (currentCard == currentCard.parentElement.lastChild) {
+            console.log("Can't move", currentCard.id, "down any more");
+            return;
+        }
+
+        // console.log(currentCard == currentCard.parentElement.firstChild);
+
+        let nextCard = currentCard.nextSibling;
+        let nextText = nextCard.childNodes[1].firstChild;
+
+        // Save current card info
+        selectedCard.id = currentCard.id;
+        selectedCard.text = currentText.value;
+
+        // Apply previous card info to selected card
+        currentCard.id = nextCard.id;
+
+        // Apply saved card info to previous card
+        nextCard.id = selectedCard.id;
+
+        // Update cards in db
+        updateCard(currentCard.id, currentText.value);
+        updateCard(nextCard.id, nextText.value);
+
+        // Re-setup card area after a short delay
+        setTimeout(function () {
+            setupCards();
+        }, 100);
+
         console.log("Moved down", newCard.id);
     });
     leftBtnArea.appendChild(nextBtn);
@@ -230,7 +297,7 @@ function createCard(name, value) {
         editCard(textEvent, newCard.id, textArea);
     });
     textArea.addEventListener("keyup", function newText(textEvent) {
-        updateCard(textEvent, newCard.id, textArea);
+        updateCard(newCard.id, textArea.value);
     });
     inputField.appendChild(textArea);
     // Auto resize text areas
@@ -255,11 +322,9 @@ function createCard(name, value) {
     button.style.position = "absolute";
     button.style.right = "0px";
     button.addEventListener("mouseover", function () {
-        // button.style.color = "#ef9a9a";
         button.style.backgroundColor = "#e57373";
     });
     button.addEventListener("mouseout", function () {
-        // button.style.color = "";
         button.style.backgroundColor = "#455a64";
     });
     button.addEventListener("click", function () {
@@ -318,8 +383,8 @@ function editCard(textEvent, cardId, text) {
 }
 
 // Updates card in database
-function updateCard(textEvent, cardId, text) {
-    patchData(dbUrl, cardListUrl, cardId, text.value);
+function updateCard(cardId, text) {
+    patchData(dbUrl, cardListUrl, cardId, text);
 }
 
 // Removes the selected card
