@@ -2,12 +2,9 @@
 document.addEventListener("DOMContentLoaded", async function () {
     console.log("Page Loaded");
 
+    // Materialize initializations
     var elems = document.querySelectorAll(".dropdown-trigger");
     var instances = M.Dropdown.init(elems, {});
-
-    // Set up initial database info
-    cardListUrl = await getData(dbUrl, "Current List");
-    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
 
     // Page event listeners
     document.querySelector("#nextBtn").addEventListener("click", changePage);
@@ -27,11 +24,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Window resize event listener
     window.addEventListener("resize", windowResize);
 
+    // Initial page setup
+    setupUser();
     setupCards();
     showTime();
 
     console.log("Initial Cards Created");
 });
+
+// Sets up user related content
+function setupUser() {
+    // Set up initial database info
+    // cardListUrl = await getData(dbUrl, "Current List");
+    // document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+
+    // Setup current card list
+    cardListUrl = getCookie("card list");
+    if (!cardListUrl) cardListUrl = "MAIN";
+    document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+}
 
 // Changes the current page
 function changePage(e) {
@@ -115,6 +126,7 @@ async function setupCards() {
 function changeCardList(e) {
     let button = e.target;
     cardListUrl = button.innerHTML;
+    setCookie("card list", cardListUrl);
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
     document.querySelector("#cardArea").innerHTML = "";
     patchData(dbUrl, "", "Current List", cardListUrl);
@@ -421,6 +433,28 @@ async function deleteData(url, item, name) {
     const response = await fetch(url + item + "/" + name + ".json", {
         method: "DELETE",
     });
+}
+
+// Creates a cookie
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";path=/";
+}
+
+// Gets an existing cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 // Display Time
