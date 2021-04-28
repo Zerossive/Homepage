@@ -2,93 +2,154 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Homepage</title>
+
+        <!-- Online Files-->
+        <!-- CSS -->
         <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-            href="https://www.w3schools.com/w3css/3/w3.css"
         />
-        <link rel="stylesheet" href="stylesheet.css" />
-        <link rel="shortcut icon" href="logoIcon.ico" />
-        <script src="javascript.js"></script>
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Local Files -->
+        <!-- Media -->
+        <link rel="shortcut icon" href="icons/logoIcon.ico" />
+        <!-- CSS -->
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="css/materialize.min.css"
+            media="screen,projection"
+        />
+        <link type="text/css" rel="stylesheet" href="css/style.css" />
+        <!-- JS -->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
     </head>
 
-    <body class="grid" onload="startup()">
-        <div class="searchInput">
-            <button
-                type="submit"
-                class="searchButton"
-                id="searchButton"
-                onclick="search()"
+    <!-- Main Body -->
+    <body class="blue-grey darken-4 white-text">
+        <!-- Nav bar -->
+        <div class="row white navBar">
+            <a
+                class="col s2 m2 btn-large white waves-effect hoverable blue-grey-text left"
+                id="prevBtn"
+                ><i class="material-icons left" id="prevBtn">chevron_left</i
+                >PREV</a
             >
-                <img src="searchIcon.png" class="searchIcon" />
-            </button>
-            <input
-                type="text"
-                class="searchText"
-                id="searchText"
-                onkeypress="enterSearch()"
-                autofocus
-            />
-            <button
-                class="closeSearch"
-                id="closeS"
-                onclick="document.getElementById('searchText').value = ''"
+            <a
+                class="col s8 m8 btn-large btn-flat white blue-grey-text"
+                id="homepageBtn"
+                ><b>HOMEPAGE</b></a
             >
-                &times
-            </button>
-        </div>
-
-        <div class="midLeft">
-            <img class="logo" src="Space Cube Logo v3.png" />
-        </div>
-
-        <div class="dateTime">
-            <h1 id="time"></h1>
-            <h2 id="date"></h2>
-        </div>
-
-        <div class="midRight">
-            <img class="logo" src="Space Cube Logo v3.png" />
-        </div>
-
-        <div class="stickyLeft">
-            <button
-                class="closeStickyLeft"
-                id="closeL"
-                onclick="eraseNote(this)"
+            <a
+                class="col s2 m2 btn-large white waves-effect hoverable blue-grey-text right"
+                id="nextBtn"
+                ><i class="material-icons right" id="nextBtn">chevron_right</i
+                >NEXT</a
             >
-                &times
-            </button>
-            <textarea class="stickyTextLeft" id="textL"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
         </div>
 
-        <div class="stickyMiddle">
-            <button
-                class="closeStickyMiddle"
-                id="closeM"
-                onclick="eraseNote(this)"
-            >
-                &times
-            </button>
-            <textarea class="stickyTextMiddle" id="textM"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
+        <!-- Notes Page -->
+        <div class="row" id="notesPage">
+            <!-- Left Section -->
+            <div class="col s12 m6 center-align" id="timeArea">
+                <!-- Time / Date -->
+                <h1 id="time"></h1>
+                <h4 id="date"></h4>
+
+                <!-- Weather -->
+                <div class="container">
+                    <div class="notification"></div>
+                    <div class="weather-container">
+                        <div class="weather-icon">
+                            <img src="icons/unknown.png" alt="" />
+                        </div>
+                        <div class="temperature-value">
+                            <p>- °<span>F</span></p>
+                        </div>
+                        <div class="temperature-description">
+                            <p>-</p>
+                        </div>
+                        <div class="location">
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="col s12 m6">
+                <!-- Card List Selector -->
+                <a
+                    class="dropdown-trigger btn-large white blue-grey-text col s12"
+                    href="#"
+                    data-target="cardListDropdown"
+                    style="margin-bottom: 7.5px"
+                    id="cardListBtn"
+                ></a>
+                <ul id="cardListDropdown" class="dropdown-content">
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn1">MAIN</a>
+                    </li>
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn2">SCHOOL</a>
+                    </li>
+                    <li style="text-align: center">
+                        <a href="#!" id="listBtn3">MISC</a>
+                    </li>
+                </ul>
+
+                <!-- Card Area -->
+                <div id="cardArea"></div>
+
+                <!-- Add Card Button -->
+                <a
+                    class="btn-large blue-grey waves-effect waves-light hoverable col s12"
+                    onclick="createNewCard()"
+                    onmouseover="this.style.color='#00bfa5';"
+                    onmouseout="this.style.color='';"
+                >
+                    <!-- Button Icon -->
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
         </div>
 
-        <div class="stickyRight">
-            <button
-                class="closeStickyRight"
-                id="closeR"
-                onclick="eraseNote(this)"
-            >
-                &times
-            </button>
-            <textarea class="stickyTextRight" id="textR"></textarea>
-            <div class="noteGradient noteGradientTop"></div>
-            <div class="noteGradient"></div>
+        <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+        <!-- Page 2 -->
+        <div class="row" id="page2">
+            <div class="col s12">
+                <h1>Schedule</h1>
+                <iframe
+                    src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FChicago&amp;src=ZGFubnloYXJyaXMxMUB0YW11LmVkdQ&amp;src=Y192NGZlYTYwOHQwZ3RubWptcXVwMmQ1NmYza0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y183dXRnNTVscHE4ZW9jZ3VjdHBtbnFpNXNya0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%23E67C73&amp;color=%237986CB&amp;color=%23616161&amp;showNav=1&amp;showTitle=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=1&amp;showTz=0&amp;showCalendars=0&amp;mode=WEEK"
+                    style="border-width: 0; border-radius: 5px"
+                    width="75%"
+                    height="650"
+                    frameborder="0"
+                    scrolling="no"
+                ></iframe>
+            </div>
         </div>
+
+        <!-- Page 3 -->
+        <div class="row" id="page3">
+            <div class="col s12">
+                <h1>Page 3 - Testing</h1>
+                <!-- <iframe
+                    src="https://zerossive.github.io/Homepage/"
+                    width="75%"
+                    height="650"
+                ></iframe> -->
+            </div>
+        </div>
+
+        <!-- Local Weather JS -->
+        <script src="js/app.js"></script>
     </body>
 </html>
