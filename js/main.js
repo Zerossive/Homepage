@@ -3,8 +3,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("Page Loaded");
 
     // Materialize initializations
-    var elems = document.querySelectorAll(".dropdown-trigger");
-    var instances = M.Dropdown.init(elems, {});
+    var dropdownElem = document.querySelectorAll(".dropdown-trigger");
+    dropdownInstance = M.Dropdown.init(dropdownElem, {});
+    var collapseElem = document.querySelectorAll(".collapsible");
+    collapseInstance = M.Collapsible.init(collapseElem, {
+        outDuration: 100,
+        inDuration: 100,
+    });
 
     // Page event listeners
     document.querySelector("#nextBtn").addEventListener("click", changePage);
@@ -34,14 +39,31 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Sets up user related content
 function setupUser() {
-    // Set up initial database info
-    // cardListUrl = await getData(dbUrl, "Current List");
-    // document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+    userDbUrl = dbUrl + "Homepage/Users/" + currentUser + "/Card List/";
+
+    setupUserData();
 
     // Setup current card list
     cardListUrl = getCookie("card list");
     if (!cardListUrl) cardListUrl = "MAIN";
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
+}
+
+async function setupUserData() {
+    // Setup link data
+    try {
+        linkData = await getData(userDbUrl, "/Link Data");
+        // document.querySelector("#linkData").innerHTML = linkData;
+        // linkData2 = newLinkData;
+        setupLinks();
+
+        // for (let i = 0; i < 9; i++) {
+        //     openContextMenu("customLink" + i);
+        //     submitLinkPopup();
+        // }
+    } catch (error) {
+        console.log("No User Link Data in Database");
+    }
 }
 
 // Changes the current page
@@ -98,7 +120,7 @@ function changePage(e) {
 // Sets up the initial cards from database
 async function setupCards() {
     // Get card data from db
-    cardList = await getData(dbUrl, cardListUrl);
+    cardList = await getData(userDbUrl, cardListUrl);
 
     // Clear card area
     document.querySelector("#cardArea").innerHTML = "";
@@ -129,7 +151,7 @@ function changeCardList(e) {
     setCookie("card list", cardListUrl);
     document.querySelector("#cardListBtn").innerHTML = cardListUrl;
     document.querySelector("#cardArea").innerHTML = "";
-    patchData(dbUrl, "", "Current List", cardListUrl);
+    patchData(userDbUrl, "", "Current List", cardListUrl);
     setupCards();
 
     console.log("Switched to card list: " + button.innerHTML);
@@ -139,7 +161,7 @@ function changeCardList(e) {
 function createNewCard() {
     // Create card and update database
     let card = createCard();
-    patchData(dbUrl, cardListUrl, card.name, card.value);
+    patchData(userDbUrl, cardListUrl, card.name, card.value);
     card.textField.focus();
 
     // Scroll to bottom on creating a new card
@@ -226,6 +248,17 @@ function createCard(name, value) {
 
         console.log("Moved up", newCard.id);
     });
+    // TESTING
+    // prevBtn.addEventListener(
+    //     "contextmenu",
+    //     function (ev) {
+    //         ev.preventDefault();
+    //         console.log("test");
+    //         alert("success!");
+    //         return false;
+    //     },
+    //     false
+    // );
     leftBtnArea.appendChild(prevBtn);
 
     // move up icon
@@ -396,7 +429,7 @@ function editCard(textEvent, cardId, text) {
 
 // Updates card in database
 function updateCard(cardId, text) {
-    patchData(dbUrl, cardListUrl, cardId, text);
+    patchData(userDbUrl, cardListUrl, cardId, text);
 }
 
 // Removes the selected card
@@ -404,7 +437,7 @@ function removeCard(delBtn) {
     while (!delBtn.classList.contains("card-panel")) {
         delBtn = delBtn.parentElement;
     }
-    deleteData(dbUrl, cardListUrl, delBtn.id);
+    deleteData(userDbUrl, cardListUrl, delBtn.id);
     delBtn.remove();
 
     M.Toast.dismissAll();
